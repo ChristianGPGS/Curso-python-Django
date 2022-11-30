@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Añadir seleccion</title>
+</head>
+<body>
+<h1>Añadir seleccion</h1>
+<form action="aniadir_seleccion" method="POST">
+    {%csrf_token%}
+    <label for="equipo">Nombre:</label><br>
+    <input type="text" id="equipo" name="equipo"><br>
+    <label for="continente">Continente:</label><br>
+    <input type="text" id="continente" name="continente"><br>
+    <label for="num_mundiales">Num_mundiales:</label><br>
+    <input type="text" id="num_mundiales" name="num_mundiales"><br><br>
+    <a href="{%url 'listar_selecciones' %}"> <input type="submit" value="Enviar"></a>
+</form>
+</body>
+</html>
