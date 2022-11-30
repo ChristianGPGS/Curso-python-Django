@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenido</title>
+</head>
+
+<body>
+    <h1>Inicio</h1>
+
+    <div>{{mensaje1}}</div>
+    <div>{{mensaje2}}</div>
+    <ul>
+        <li><a href="{% url 'deportes' %}">Actualidad deportiva</a></li>
+        <li><a href="/deportes">Actualidad deportiva2</a></li>
+        <li><a href="{% url 'listar_datos' %}">Listar alumnos</a></li>
+    </ul>
+</body>
+
+</html>
