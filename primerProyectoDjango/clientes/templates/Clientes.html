@@ -6,5 +6,17 @@
 </head>
 <body>
 <h1>Clientes</h1>
+<form action="" method="POST">
+    {%csrf_token%}
+    <label for="nombre">Nombre:</label><br>
+    <input type="text" id="nombre" name="nombre"><br>
+    <label for="apellido">Apellidos:</label><br>
+    <input type="text" id="apellido" name="apellido"><br>
+    <label for="dni">DNI:</label><br>
+    <input type="text" id="dni" name="dni"><br>
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" name="email"><br><br>
+    <input type="submit" value="Enviar" > <br>
+</form>
 </body>
 </html>
