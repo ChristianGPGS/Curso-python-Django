@@ -24,19 +24,23 @@ def listar_selecciones(request):
 
     # Recibe los datos del boton enviar
     if request.method == 'POST':
-        continente_filtro = request.POST['continente']
-        titulo = request.POST.get('titulo', 'titulo por defecto')
-        nombre = request.POST['equipo']
-        continente = request.POST['continente']
-        num_mundiales = request.POST['num_mundiales']
-        nueva_seleccion = {"nombre": nombre, "continente": continente, "num_mundiales": num_mundiales}
-        lista_selecciones.append(nueva_seleccion)
+        accion = request.POST.get('accion', '')
+
+        if accion == "Filtrar":
+            continente_filtro = request.POST['continente']
+            titulo = request.POST.get('titulo', 'titulo por defecto')
+
+            lista_selecciones = list(
+                filter(lambda seleccion: seleccion["continente"] == continente_filtro, lista_selecciones))
+        elif accion == "guardar":
+            nombre = request.POST['equipo']
+            continente = request.POST['continente']
+            num_mundiales = request.POST['num_mundiales']
+            nueva_seleccion = {"nombre": nombre, "continente": continente, "num_mundiales": num_mundiales}
+            lista_selecciones.append(nueva_seleccion)
+
     elif request.method == 'GET':
         titulo = request.GET.get('titulo', 'titulo por defecto')
-
-    if continente_filtro is not None:
-        lista_selecciones = list(
-            filter(lambda seleccion: seleccion["continente"] == continente_filtro, lista_selecciones))
 
     contexto = {"listado_selecciones": lista_selecciones, "titulo_tabla": titulo,
                 "listado_continentes": ["Europa", "America", "Asia", "Africa", "Oceania"]}
