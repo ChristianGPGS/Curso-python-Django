@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Añadir seleccion</h1>
-<form action="aniadir_seleccion" method="POST">
+<form action="deportes/futbol/listado-selecciones" method="POST">
     {%csrf_token%}
     <label for="equipo">Nombre:</label><br>
     <input type="text" id="equipo" name="equipo"><br>
@@ -14,7 +14,7 @@
     <input type="text" id="continente" name="continente"><br>
     <label for="num_mundiales">Num_mundiales:</label><br>
     <input type="text" id="num_mundiales" name="num_mundiales"><br><br>
-    <a href="{%url 'listar_selecciones' %}"> <input type="submit" value="Enviar"></a>
+    <input type="submit" value="Enviar" > <br>
 </form>
 </body>
 </html>

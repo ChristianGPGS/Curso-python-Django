@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 
 
 # Create your views here.
@@ -12,11 +12,8 @@ def deportes(request):
 
 def listar_selecciones(request):
     continente_filtro = None
-    if request.method == 'POST':
-        continente_filtro = request.POST['continente']
-        titulo = request.POST['titulo']
-    elif request.method == 'GET':
-        titulo = request.GET['titulo']
+    titulo = ""
+    nueva_seleccion = {}
 
     espania = {"nombre": "España", "continente": "Europa", "num_mundiales": 1}
     brasil = {"nombre": "Brasil", "continente": "America", "num_mundiales": 5}
@@ -24,6 +21,19 @@ def listar_selecciones(request):
     senegal = {"nombre": "Senegal", "continente": "Africa", "num_mundiales": 0}
 
     lista_selecciones = [espania, brasil, francia, senegal]
+
+    # Recibe los datos del boton enviar
+    if request.method == 'POST':
+        continente_filtro = request.POST['continente']
+        titulo = request.POST.get('titulo', 'titulo por defecto')
+        nombre = request.POST['equipo']
+        continente = request.POST['continente']
+        num_mundiales = request.POST['num_mundiales']
+        nueva_seleccion = {"nombre": nombre, "continente": continente, "num_mundiales": num_mundiales}
+        lista_selecciones.append(nueva_seleccion)
+    elif request.method == 'GET':
+        titulo = request.GET.get('titulo', 'titulo por defecto')
+
     if continente_filtro is not None:
         lista_selecciones = list(
             filter(lambda seleccion: seleccion["continente"] == continente_filtro, lista_selecciones))
@@ -35,12 +45,4 @@ def listar_selecciones(request):
 
 
 def aniadir_seleccion(request):
-    nueva_seleccion = {}
-    if request.method == 'POST':
-        nombre = request.POST['equipo']
-        continente = request.POST['continente']
-        num_mundiales = request.POST['num_mundiales']
-        nueva_seleccion = {"nombre": nombre, "continente": continente, "num_mundiales": num_mundiales}
-        print(nueva_seleccion)
-
-    return render(request, "aniadir_seleccion.html", nueva_seleccion)
+    return render(request, "aniadir_seleccion.html")

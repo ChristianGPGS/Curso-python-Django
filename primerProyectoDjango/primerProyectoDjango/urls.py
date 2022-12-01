@@ -21,7 +21,7 @@ from deportes.views import deportes, listar_selecciones, aniadir_seleccion
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('welcome/', bienvenido, name='inicio'),
+    path('', bienvenido, name='inicio'),
     path('goodbye/', despedida),
     path('deportes/', deportes, name='deportes'),
     path('listar_datos/', listar_datos, name='listar_datos'),
