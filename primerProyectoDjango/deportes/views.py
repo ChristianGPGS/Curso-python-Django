@@ -1,3 +1,5 @@
+from deportes.models import Jugador
+from django.forms import modelform_factory
 from django.shortcuts import render
 
 
@@ -13,7 +15,6 @@ def deportes(request):
 def listar_selecciones(request):
     continente_filtro = None
     titulo = ""
-    nueva_seleccion = {}
 
     espania = {"nombre": "España", "continente": "Europa", "num_mundiales": 1}
     brasil = {"nombre": "Brasil", "continente": "America", "num_mundiales": 5}
@@ -50,3 +51,45 @@ def listar_selecciones(request):
 
 def aniadir_seleccion(request):
     return render(request, "aniadir_seleccion.html")
+
+
+JugadorForm = modelform_factory(Jugador, exclude=[])
+
+
+def jugadores(request):
+    listado_posiciones = ["Portero", "Defensa", "Centrocampistas", "Delanteros"]
+    listado_jugadores = []
+    if request.method == "POST":
+        jugador_form = JugadorForm(request.POST)
+        jugador_form.save()
+    jugador_form = JugadorForm()
+    jugadores = Jugador.objects.all()
+    for jugador in jugadores:
+        nombres = jugador.nombre
+        equipo = jugador.equipo
+        edad = jugador.edad
+        posicion = jugador.posicion
+        nacionalidad = jugador.nacionalidad
+        jugador_format = {"nombre": nombres, "equipo": equipo, "edad": edad, "posicion": posicion,
+                          "nacionalidad": nacionalidad}
+        listado_jugadores.append(jugador_format)
+    contexto = {"listado_posiciones": listado_posiciones, "listado_jugadores": listado_jugadores,
+                "jugador_form": jugador_form}
+    return render(request, "Jugadores.html", contexto)
+
+
+def add_jugador(request):
+    mensaje = ''
+    if request.method == 'POST':
+        try:
+            jugador_form = JugadorForm(request.POST)
+            jugador_form.save()
+        except Exception as e:
+            mensaje = f'Error al almacenar el jugador {e}'
+        else:
+            mensaje = "Jugador almacenado correctamente"
+
+    jugador_form = JugadorForm()
+
+    contexto = {"jugador_form": jugador_form, "mensaje": mensaje}
+    return render(request, "add_jugador.html", contexto)

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Añadir jugador</title>
+</head>
+<body>
+<h1>Añadir jugador</h1>
+<form action="" method="POST">
+    {%csrf_token%}
+    <table>
+        {{jugador_form}}
+    </table>
+    <input type="hidden" name="action" value="guardar">
+    <input type="submit" value="Guardar">
+    <h2 style="color:green">{{mensaje}}</h2>
+    <a href="{% url 'Jugadores' %}"><input type="Button" value="Pagina Anterior"> </a>
+
+</form>
+</body>
+</html>

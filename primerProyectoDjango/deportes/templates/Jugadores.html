@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jugadores</title>
+</head>
+<body>
+<form action="listado-jugadores" method="POST">
+    {%csrf_token%}
+    <fieldset>
+        <legend>Filtro</legend>
+        <label>Buscar Posicion: <input type="text" name="posicion" list="posicion"/>
+            <datalist id="posicion">
+                {% for posicion  in listado_posiciones %}
+                <option value="{{posicion}}"></option>
+                {% endfor %}
+            </datalist>
+        </label>
+    </fieldset>
+    <input type="hidden" name="action" value="filtrar">
+    <input type="submit" value="Filtrar"/>
+    <hr>
+<table border="1" title="{{titulo_tabla}}">
+    <thead>
+    <tr>
+        <th>nombre</th>
+        <th>equipo</th>
+        <th>edad</th>
+        <th>posicion</th>
+        <th>nacionalidad</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for jugador in listado_jugadores %}
+    <tr>
+        <td>{{jugador.nombre}}</td>
+        <td>{{jugador.equipo}}</td>
+        <td>{{jugador.edad}}</td>
+        <td>{{jugador.posicion}}</td>
+        <td>{{jugador.nacionalidad}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</form>
+<a href="{%url 'add-jugador' %}">Añadir jugador</a><br>
+<a href="{% url 'deportes' %}">Pagina Anterior</a>
+</body>
+</html>

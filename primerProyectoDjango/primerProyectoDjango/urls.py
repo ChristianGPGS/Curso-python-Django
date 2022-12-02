@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 
 from webapp.views import bienvenido, despedida, listar_datos
-from deportes.views import deportes, listar_selecciones, aniadir_seleccion
+from deportes.views import deportes, listar_selecciones, aniadir_seleccion, jugadores, add_jugador
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,4 +29,7 @@ urlpatterns = [
     path('deportes/futbol/listado-selecciones', listar_selecciones, name='listar_selecciones'),
     path('aniadir_seleccion', aniadir_seleccion, name='aniadir_seleccion'),
     path('Clientes', insertar_clientes, name='Clientes'),
+    path('Jugadores/', jugadores, name='Jugadores'),
+    path('add_jugador', add_jugador, name='add-jugador'),
+
 ]

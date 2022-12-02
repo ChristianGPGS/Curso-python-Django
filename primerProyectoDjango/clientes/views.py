@@ -9,6 +9,6 @@ def insertar_clientes(request):
         apellidos = request.POST.get('apellido', '')
         dni = request.POST.get('dni', '')
         email = request.POST.get('email', '')
-        cliente = Clientes(1, nombre, apellidos, dni, email)
+        cliente = Clientes(nombre=nombre, apellidos=apellidos, dni=dni, email=email)
         cliente.save()
     return render(request, "Clientes.html")
