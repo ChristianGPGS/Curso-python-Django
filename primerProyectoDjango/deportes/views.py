@@ -59,22 +59,32 @@ JugadorForm = modelform_factory(Jugador, exclude=[])
 def jugadores(request):
     listado_posiciones = ["Portero", "Defensa", "Centrocampistas", "Delanteros"]
     listado_jugadores = []
+    accion = request.POST.get('action', '')
+    id_jugador_borrar = request.POST.get('id_jugador', '')
+
     if request.method == "POST":
-        jugador_form = JugadorForm(request.POST)
-        jugador_form.save()
+        # Inicio Metodo para Añadir jugadores
+        if accion == "guardar":
+            jugador_form = JugadorForm(request.POST)
+            jugador_form.save()
+        # Final Metodo para Añadir jugadores
     jugador_form = JugadorForm()
     jugadores = Jugador.objects.all()
     for jugador in jugadores:
+        id = jugador.id
         nombres = jugador.nombre
         equipo = jugador.equipo
         edad = jugador.edad
         posicion = jugador.posicion
         nacionalidad = jugador.nacionalidad
-        jugador_format = {"nombre": nombres, "equipo": equipo, "edad": edad, "posicion": posicion,
+        jugador_format = {"id": id, "nombre": nombres, "equipo": equipo, "edad": edad, "posicion": posicion,
                           "nacionalidad": nacionalidad}
         listado_jugadores.append(jugador_format)
+        if accion == "borrar":
+            print(id_jugador_borrar)
     contexto = {"listado_posiciones": listado_posiciones, "listado_jugadores": listado_jugadores,
                 "jugador_form": jugador_form}
+
     return render(request, "Jugadores.html", contexto)
 
 

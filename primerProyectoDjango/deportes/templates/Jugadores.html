@@ -5,7 +5,7 @@
     <title>Jugadores</title>
 </head>
 <body>
-<form action="listado-jugadores" method="POST">
+<form action="" method="POST">
     {%csrf_token%}
     <fieldset>
         <legend>Filtro</legend>
@@ -28,6 +28,8 @@
         <th>edad</th>
         <th>posicion</th>
         <th>nacionalidad</th>
+        <th>borrar</th>
+        <th>update</th>
     </tr>
     </thead>
     <tbody>
@@ -38,6 +40,10 @@
         <td>{{jugador.edad}}</td>
         <td>{{jugador.posicion}}</td>
         <td>{{jugador.nacionalidad}}</td>
+        <input type="hidden" name="id_jugador" value="{{jugador.id}}">
+        <input type="hidden" name="action" value="borrar">
+        <td><input type="submit" value="borrar"></td>
+        <td><input type="button" value="update"></td>
     </tr>
     {% endfor %}
     </tbody>
